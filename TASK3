@@ -1,0 +1,158 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPqgD3lq6B1eEwnK1CCXCFb",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Sirivanka206/Advanced-stop-watch-/blob/main/TASK3\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-XfxT_xEb8A_",
+        "outputId": "37c7347b-37f2-4983-946f-35d5a0a507e4"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Downloading data from https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz\n",
+            "\u001b[1m170498071/170498071\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m2s\u001b[0m 0us/step\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/usr/local/lib/python3.12/dist-packages/keras/src/layers/convolutional/base_conv.py:113: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n",
+            "  super().__init__(activity_regularizer=activity_regularizer, **kwargs)\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Epoch 1/10\n",
+            "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m84s\u001b[0m 51ms/step - accuracy: 0.4568 - loss: 1.4992 - val_accuracy: 0.5659 - val_loss: 1.2098\n",
+            "Epoch 2/10\n",
+            "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m76s\u001b[0m 49ms/step - accuracy: 0.6056 - loss: 1.1172 - val_accuracy: 0.6301 - val_loss: 1.0345\n",
+            "Epoch 3/10\n",
+            "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m74s\u001b[0m 47ms/step - accuracy: 0.6615 - loss: 0.9688 - val_accuracy: 0.6502 - val_loss: 1.0024\n",
+            "Epoch 4/10\n",
+            "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m81s\u001b[0m 47ms/step - accuracy: 0.6953 - loss: 0.8687 - val_accuracy: 0.6726 - val_loss: 0.9479\n",
+            "Epoch 5/10\n",
+            "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m73s\u001b[0m 47ms/step - accuracy: 0.7208 - loss: 0.7947 - val_accuracy: 0.6886 - val_loss: 0.9115\n",
+            "Epoch 6/10\n",
+            "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m80s\u001b[0m 46ms/step - accuracy: 0.7441 - loss: 0.7350 - val_accuracy: 0.7090 - val_loss: 0.8558\n",
+            "Epoch 7/10\n",
+            "\u001b[1m1563/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m\u001b[0m \u001b[1m78s\u001b[0m 50ms/step - accuracy: 0.7597 - loss: 0.6875 - val_accuracy: 0.7067 - val_loss: 0.8693\n",
+            "Epoch 8/10\n",
+            "\u001b[1m1527/1563\u001b[0m \u001b[32m━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[37m━\u001b[0m \u001b[1m1s\u001b[0m 44ms/step - accuracy: 0.7748 - loss: 0.6385"
+          ]
+        }
+      ],
+      "source": [
+        "import tensorflow as tf\n",
+        "from tensorflow.keras import datasets\n",
+        "from tensorflow.keras import models, layers\n",
+        "(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()\n",
+        "train_images, test_images = train_images / 255.0, test_images / 255.0\n",
+        "class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']\n",
+        "model = models.Sequential()\n",
+        "model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)))\n",
+        "model.add(layers.MaxPooling2D((2, 2)))\n",
+        "model.add(layers.Conv2D(64, (3, 3), activation='relu'))\n",
+        "model.add(layers.MaxPooling2D((2, 2)))\n",
+        "model.add(layers.Conv2D(64, (3, 3), activation='relu'))\n",
+        "model.add(layers.Flatten())\n",
+        "model.add(layers.Dense(64, activation='relu'))\n",
+        "model.add(layers.Dense(10))\n",
+        "model.compile(optimizer='adam', loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),\n",
+        "metrics=['accuracy'])\n",
+        "history = model.fit(train_images, train_labels, epochs=10, validation_data=(test_images, test_labels))\n",
+        "import matplotlib.pyplot as plt\n",
+        "plt.figure(figsize=(8, 8))\n",
+        "plt.plot(history.history['accuracy'], label='accuracy')\n",
+        "plt.plot(history.history['val_accuracy'], label = 'val_accuracy')\n",
+        "plt.xlabel('Epoch')\n",
+        "plt.ylabel('Accuracy')\n",
+        "plt.ylim([0.5, 1])\n",
+        "plt.legend(loc='lower right')\n",
+        "plt.savefig(\"output_report.png\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "!pip install ultralytics import numpy as np\n",
+        "\n",
+        "import os import cv2 import time\n",
+        "from ultralytics import YOLO # define some parameters CONFIDENCE = 0.5\n",
+        "font_scale = 1\n",
+        "thickness = 1\n",
+        "# loading the YOLOv8 model with the default weight file model = YOLO(\"yolov8n.pt\")\n",
+        "# loading all the class labels (objects)\n",
+        "labels = open(\"/content/coco.names\").read().strip().split(\"\\n\") # generating colors for each object for later plotting\n",
+        "colors = np.random.randint(0, 255, size=(len(labels), 3), dtype=\"uint8\") path_name = \"/content/dog.jpg\"\n",
+        "image = cv2.imread(path_name)\n",
+        "file_name = os.path.basename(path_name) # \"dog.jpg\" filename, ext = file_name.split(\".\") # \"dog\", \"jpg\"\n",
+        "# measure how much it took in seconds start = time.perf_counter()\n",
+        "# run inference on the image\n",
+        "# see: https://docs.ultralytics.com/modes/predict/#arguments for full list of arguments results = model.predict(image, conf=CONFIDENCE)[0]\n",
+        "time_took = time.perf_counter() - start print(f\"Time took: {time_took:.2f}s\") print(results.boxes.data)\n",
+        "# loop over the detections\n",
+        "for data in results.boxes.data.tolist():\n",
+        "# get the bounding box coordinates, confidence, and class id\n",
+        "\n",
+        "xmin, ymin, xmax, ymax, confidence, class_id = data\n",
+        "# converting the coordinates and the class id to integers xmin = int(xmin)\n",
+        "ymin = int(ymin) xmax = int(xmax) ymax = int(ymax) class_id = int(class_id)\n",
+        "# draw a bounding box rectangle and label on the image for class_id in class_ids:\n",
+        "color = [int(c) for c in colors[class_id]]\n",
+        "cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=color, thickness=thickness) text = f\"{labels[class_id]}: {confidence:.2f}\"\n",
+        "# calculate text width & height to draw the transparent boxes as background of the text\n",
+        "(text_width, text_height) = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=font_scale, thickness=thickness)[0]\n",
+        "text_offset_x = xmin text_offset_y = ymin - 5\n",
+        "box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 2, text_offset_y - text_height))\n",
+        "overlay = image.copy()\n",
+        "cv2.rectangle(overlay, box_coords[0], box_coords[1], color=color, thickness=cv2.FILLED) # add opacity (transparency to the box)\n",
+        "image = cv2.addWeighted(overlay, 0.6, image, 0.4, 0) # now put the text (label: confidence %)\n",
+        "cv2.putText(image, text, (xmin, ymin - 5), cv2.FONT_HERSHEY_SIMPLEX, fontScale=font_scale, color=(0, 0, 0), thickness=thickness)\n",
+        "import cv2\n",
+        "from google.colab.patches import cv2_imshow # display output image\n",
+        "cv2_imshow(image) cv2.waitKey(0)\n",
+        "# save output image to disk cv2.imwrite(filename + \"_yolo8.\" + ext, image)\n"
+      ],
+      "metadata": {
+        "id": "xkpkQ6uLcm3E"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
